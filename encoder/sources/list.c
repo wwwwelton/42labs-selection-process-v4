@@ -157,6 +157,31 @@ char *compress_str(char **dictionary, unsigned char *str) {
   return compressed;
 }
 
+char *decompress_str(char *compressed, t_node *root) {
+  int i;
+  t_node *tmp;
+  char tmp_str[2] = {0};
+  char *decompressed;
+
+  tmp = root;
+  decompressed = calloc(strlen(compressed), sizeof(char));
+  i = 0;
+  while (compressed[i]) {
+    if (compressed[i] == '0')
+      tmp = tmp->left;
+    else
+      tmp = tmp->right;
+
+    if (tmp->left == NULL && tmp->right == NULL) {
+      tmp_str[0] = tmp->character;
+      strcat(decompressed, tmp_str);
+      tmp = root;
+    }
+    i++;
+  }
+  return decompressed;
+}
+
 void print_frequency(unsigned int *array) {
   for (int i = 0; i < ASCII_HEIGHT; i++) {
     if (array[i] > 0) {

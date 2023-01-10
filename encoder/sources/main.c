@@ -9,6 +9,7 @@ int main(int argc, char **argv) {
   int columns;
   char **dictionary;
   char *compressed;
+  char *decompressed;
   unsigned char *file_content;
 
   (void)argc;
@@ -30,13 +31,16 @@ int main(int argc, char **argv) {
 
   file_content = read_file(argv[1]);
   compressed = compress_str(dictionary, file_content);
+  decompressed = decompress_str(compressed, root);
 
   printf("\n[DICTIONARY]\n\n");
   print_dictionary(dictionary);
   printf("%s", compressed);
+  printf("\n%s", decompressed);
 
   free_dictionary(dictionary, ASCII_HEIGHT);
   free(compressed);
+  free(decompressed);
   free(file_content);
   free_tree(root);
 

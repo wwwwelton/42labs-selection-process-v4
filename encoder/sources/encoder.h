@@ -41,6 +41,7 @@ void generate_dictionary(char **dictionary, t_node *root, char *path, int column
 
 int get_string_lenght(char **dictionary, unsigned char *str);
 char *compress_str(char **dictionary, unsigned char *str);
+char *decompress_str(char *compress, t_node *root);
 
 void free_dictionary(char **dictionary, int size);
 void free_tree(t_node *root);
