@@ -1,4 +1,4 @@
-SOURCES_FILES	=	main.c utils.c
+SOURCES_FILES	=	main.c utils.c list.c
 
 SOURCES_DIR		=	sources
 
@@ -15,7 +15,7 @@ NAME			=	encoder
 CC				=	gcc
 RM				=	rm -rf
 
-CFLAGS			=	-Wall -Wextra -Werror
+CFLAGS			=	-Wall -Wextra -Werror -g
 LDFLAGS			=	-pthread
 
 $(OBJ_DIR)/%.o:		$(SOURCES_DIR)/%.c $(HEADER)

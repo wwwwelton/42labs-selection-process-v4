@@ -1,46 +1,46 @@
 #include "encoder.h"
 
-void huffman_codes(t_frequency_table *ref, int size)
-{
- for (int i = 0; i < size; i++) {
-    printf("%c: %d\n", ref[i].character, ref[i].frequency);
-  }
-}
-
 int main(int argc, char **argv) {
   int fd;
   char c;
-  int size = 0;
-  t_frequency_table ascii[128];
-  t_frequency_table ref[128];
+  int ascii[128] = {0};
+  t_list list;
+  t_node *root;
+  int columns;
+  char **dictionary;
+  char *compressed;
 
   (void)argc;
   fd = open(argv[1], O_RDONLY);
 
-  for (int i = 0; i < 128; i++) {
-    ascii[i].character = i;
-    ascii[i].frequency = 0;
-  }
-
   while (read(fd, &c, 1) > 0) {
-    ascii[(int)c].frequency++;
+    ascii[(int)c]++;
   }
 
-  sort_array(ascii, 128);
+  init_list(&list);
+  fill_list(ascii, 128, &list);
+  printf("[LIST]\n\n");
+  print_list(&list);
+  root = create_huffman_tree(&list);
 
-  for (int i = 0; i < 128; i++)
-  {
-	if (ascii[i].frequency > 0)
-	{
-		ref[size] = ascii[i];
-		size++;
-	}
-  }
+  printf("\n[TREE]\n\n");
+  print_huffman_tree(root, 0);
 
-  huffman_codes(ref, size);
+  columns = huffman_tree_height(root) + 1;
+  dictionary = alloc_dictionary(columns);
+  generate_dictionary(dictionary, root, "", columns);
 
-//   for (int i = 0; i < size; i++) {
-//     printf("%c: %d\n", ref[i].character, ref[i].frequency);
-//   }
+  printf("\n[DICTIONARY]\n\n");
+
+  print_dictionary(dictionary);
+
+  compressed = compress_str(dictionary, "Vamos aprender a programa");
+  printf("%s", compressed);
+
+  //   for (int i = 0; i < 128; i++) {
+  //     if (ascii[i] > 0) {
+  //       printf("%c: %d\n", i, ascii[i]);
+  //     }
+  //   }
   return (0);
 }
