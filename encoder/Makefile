@@ -1,41 +1,42 @@
-SOURCES_FILES = main.c
+SOURCES_FILES	=	main.c utils.c
 
-SOURCES_DIR = sources
+SOURCES_DIR		=	sources
 
-OBJ_DIR = objects
+OBJ_DIR			=	objects
 
-HEADER = $(SOURCES_DIR)/encoder.h
+HEADER			=	$(SOURCES_DIR)/encoder.h
 
-SOURCES = $(addprefix $(SOURCES_DIR)/, $(SOURCES_FILES))
+SOURCES			=	$(addprefix $(SOURCES_DIR)/, $(SOURCES_FILES))
 
-OBJECTS = $(SOURCES: $(SOURCES_DIR)/%.c=$(OBJ_DIR)/%.o)
+OBJECTS			=	$(SOURCES:$(SOURCES_DIR)/%.c=$(OBJ_DIR)/%.o)
 
-NAME = encoder
+NAME			=	encoder
 
-CC = gcc
-RM = rm -rf
+CC				=	gcc
+RM				=	rm -rf
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS			=	-Wall -Wextra -Werror
+LDFLAGS			=	-pthread
 
-$(OBJ_DIR)/%.o:	$(SOURCES_DIR)/%.c $(HEADER)
-				$(CC) $(CFLAGS) -c $< -o $@
+$(OBJ_DIR)/%.o:		$(SOURCES_DIR)/%.c $(HEADER)
+					$(CC) $(CFLAGS) -c $< -o $@
 
-all: $(NAME)
+all:				$(NAME)
 
-bonus: all
+bonus:				all
 
-$(NAME):		$(OBJ_DIR) $(OBJECTS) $(HEADER)
-				$(CC) $(CFLAGS) $(OBJECTS) -o $(NAME)
+$(NAME):			$(OBJ_DIR) $(OBJECTS) $(HEADER)
+					$(CC) $(CFLAGS) $(OBJECTS) $(LDFLAGS) -o $(NAME)
 
 $(OBJ_DIR):
-				mkdir -p $(OBJ_DIR)
+					mkdir -p $(OBJ_DIR)
 
 clean:
-				$(RM) $(OBJ_DIR)
+					$(RM) $(OBJ_DIR)
 
-fclean:			clean
-				$(RM) $(NAME)
+fclean:				clean
+					$(RM) $(NAME)
 
-re:				fclean all
+re:					fclean all
 
-.PHONY:			all clean fclean re bonus
+.PHONY:				all clean fclean re bonus
