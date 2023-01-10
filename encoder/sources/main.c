@@ -1,8 +1,6 @@
 #include "encoder.h"
 
 int main(int argc, char **argv) {
-  int fd;
-  unsigned char c;
   unsigned int ascii[ASCII_HEIGHT] = {0};
   t_list list;
   t_node *root;
@@ -14,11 +12,7 @@ int main(int argc, char **argv) {
 
   (void)argc;
 
-  fd = open(argv[1], O_RDONLY);
-  while (read(fd, &c, 1) > 0) {
-    ascii[c]++;
-  }
-  close(fd);
+  read_file_frequency(argv[1], ascii);
 
   init_list(&list);
   fill_list(ascii, ASCII_HEIGHT, &list);
@@ -35,8 +29,12 @@ int main(int argc, char **argv) {
 
   printf("\n[DICTIONARY]\n\n");
   print_dictionary(dictionary);
+
+  printf("\n[COMPRESSED]\n");
   printf("%s", compressed);
-  printf("\n%s", decompressed);
+
+  printf("\n\n[DECOMPRESSED]\n");
+  printf("%s", decompressed);
 
   free_dictionary(dictionary, ASCII_HEIGHT);
   free(compressed);

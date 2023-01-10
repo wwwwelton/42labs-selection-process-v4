@@ -21,8 +21,6 @@ typedef struct s_list {
   int size;
 } t_list;
 
-void sort_array(int *array, int size);
-
 t_node *create_node(char character, int frequency);
 void init_list(t_list *list);
 void insert_node_list(t_list *list, t_node *node);
@@ -46,6 +44,7 @@ char *decompress_str(char *compress, t_node *root);
 void free_dictionary(char **dictionary, int size);
 void free_tree(t_node *root);
 
+void read_file_frequency(char *file_name, unsigned int *ascii);
 unsigned char *read_file(char *file_name);
 
 #endif

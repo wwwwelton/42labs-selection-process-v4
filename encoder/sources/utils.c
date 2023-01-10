@@ -1,21 +1,18 @@
 #include "encoder.h"
 
-void sort_array(int *array, int size) {
-  int swapped = 1;
-  int tmp;
+void read_file_frequency(char *file_name, unsigned int *ascii) {
+  int fd;
+  unsigned char c;
 
-  while (swapped) {
-    swapped = 0;
-
-    for (int i = 0; i < (size - 1); i++) {
-      if (array[i] > array[i + 1]) {
-        tmp = array[i];
-        array[i] = array[i + 1];
-        array[i + 1] = tmp;
-        swapped = 1;
-      }
-    }
+  fd = open(file_name, O_RDONLY);
+  if (fd == -1) {
+    dprintf(2, "Cannot open input file\n");
+    exit(1);
   }
+  while (read(fd, &c, 1) > 0) {
+    ascii[c]++;
+  }
+  close(fd);
 }
 
 unsigned char *read_file(char *file_name) {
