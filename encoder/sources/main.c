@@ -1,5 +1,18 @@
 #include "encoder.h"
 
+char *read_file(char *file) {
+  int fd;
+  char tmp[2] = {0};
+  char *str;
+
+  str = calloc(1000, sizeof(char *));
+  fd = open(file, O_RDONLY);
+  while (read(fd, tmp, 1) > 0) {
+    strcat(str, tmp);
+  }
+  return str;
+}
+
 int main(int argc, char **argv) {
   int fd;
   char c;
@@ -9,6 +22,7 @@ int main(int argc, char **argv) {
   int columns;
   char **dictionary;
   char *compressed;
+  char *file_content;
 
   (void)argc;
 
@@ -26,7 +40,8 @@ int main(int argc, char **argv) {
   dictionary = alloc_dictionary(columns);
   generate_dictionary(dictionary, root, "", columns);
 
-  compressed = compress_str(dictionary, "bora fazer um test");
+  file_content = read_file(argv[1]);
+  compressed = compress_str(dictionary, file_content);
 
   printf("\n[DICTIONARY]\n\n");
   print_dictionary(dictionary);
@@ -34,6 +49,7 @@ int main(int argc, char **argv) {
 
   free_dictionary(dictionary, 128);
   free(compressed);
+  free(file_content);
   free_tree(root);
 
   return (0);
