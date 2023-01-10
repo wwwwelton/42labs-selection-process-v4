@@ -50,7 +50,7 @@ t_node *remove_front_node_list(t_list *list) {
   return (tmp);
 }
 
-void fill_list(int *array, int size, t_list *list) {
+void fill_list(unsigned int *array, int size, t_list *list) {
   t_node *new_node;
 
   for (int i = 0; i < size; i++) {
@@ -100,9 +100,9 @@ int huffman_tree_height(t_node *root) {
 char **alloc_dictionary(int columns) {
   char **dictionary;
 
-  dictionary = malloc(sizeof(char *) * 128);
+  dictionary = malloc(sizeof(char *) * ASCII_HEIGHT);
 
-  for (int i = 0; i < 128; i++) {
+  for (int i = 0; i < ASCII_HEIGHT; i++) {
     dictionary[i] = calloc(columns, sizeof(char));
   }
 
@@ -127,7 +127,7 @@ void generate_dictionary(char **dictionary, t_node *root, char *path, int column
   }
 }
 
-int get_string_lenght(char **dictionary, char *str) {
+int get_string_lenght(char **dictionary, unsigned char *str) {
   int i;
   int lenght;
 
@@ -141,7 +141,7 @@ int get_string_lenght(char **dictionary, char *str) {
   return (lenght + 1);
 }
 
-char *compress_str(char **dictionary, char *str) {
+char *compress_str(char **dictionary, unsigned char *str) {
   int i;
   int lenght;
   char *compressed;
@@ -155,6 +155,14 @@ char *compress_str(char **dictionary, char *str) {
     i++;
   }
   return compressed;
+}
+
+void print_frequency(unsigned int *array) {
+  for (int i = 0; i < ASCII_HEIGHT; i++) {
+    if (array[i] > 0) {
+      printf("%d: %u\n", i, array[i]);
+    }
+  }
 }
 
 void print_list(t_list *list) {
@@ -177,7 +185,7 @@ void print_huffman_tree(t_node *root, int height) {
 }
 
 void print_dictionary(char **dictionary) {
-  for (int i = 0; i < 128; i++) {
+  for (int i = 0; i < ASCII_HEIGHT; i++) {
     if (strlen(dictionary[i])) {
       printf("%c: %s\n", i, dictionary[i]);
     }
