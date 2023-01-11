@@ -6,6 +6,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/ipc.h>
+#include <sys/shm.h>
 #include <unistd.h>
 
 #define ASCII_HEIGHT 256
@@ -20,6 +22,12 @@ typedef struct s_list {
   t_node *root;
   int size;
 } t_list;
+
+typedef struct s_file {
+  char file_name[1024];
+  char compressed[20000];
+  unsigned int ascii[ASCII_HEIGHT];
+} t_file;
 
 t_node *create_node(char character, int frequency);
 void init_list(t_list *list);
@@ -46,5 +54,7 @@ void free_tree(t_node *root);
 
 void read_file_frequency(char *file_name, unsigned int *ascii);
 unsigned char *read_file(char *file_name);
+
+void dup_dictionary(unsigned char (*dest)[8], char **src);
 
 #endif

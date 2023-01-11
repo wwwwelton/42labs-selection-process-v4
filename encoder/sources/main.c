@@ -1,5 +1,17 @@
 #include "encoder.h"
 
+void dump_compressed(char *file_name, char *compressed, unsigned int *ascii) {
+  t_file *file;
+
+  key_t key = ftok("shmfile", 65);
+  int shmid = shmget(key, sizeof(t_file), 0666 | IPC_CREAT);
+  file = shmat(shmid, (void *)0, 0);
+  strcpy(file->file_name, file_name);
+  strcpy(file->compressed, compressed);
+  memcpy(file->ascii, ascii, sizeof(unsigned int) * ASCII_HEIGHT);
+  shmdt(file);
+}
+
 int main(int argc, char **argv) {
   unsigned int ascii[ASCII_HEIGHT] = {0};
   t_list list;
@@ -26,6 +38,8 @@ int main(int argc, char **argv) {
   file_content = read_file(argv[1]);
   compressed = compress_str(dictionary, file_content);
   decompressed = decompress_str(compressed, root);
+
+  dump_compressed(argv[1], compressed, ascii);
 
   printf("\n[DICTIONARY]\n\n");
   print_dictionary(dictionary);

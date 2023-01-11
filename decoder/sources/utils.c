@@ -1,4 +1,4 @@
-#include "encoder.h"
+#include "decoder.h"
 
 void read_file_frequency(char *file_name, unsigned int *ascii) {
   int fd;
