@@ -8,6 +8,7 @@
 #include <string.h>
 #include <sys/ipc.h>
 #include <sys/shm.h>
+#include <sys/time.h>
 #include <unistd.h>
 
 #define ASCII_HEIGHT 256
@@ -23,11 +24,31 @@ typedef struct s_list {
   int size;
 } t_list;
 
-typedef struct s_file {
+typedef struct s_comp_file {
   char file_name[1024];
   char compressed[20000];
   unsigned int ascii[ASCII_HEIGHT];
-} t_file;
+} t_comp_file;
+
+typedef struct s_decomp_file {
+  char decompressed[20000];
+  int comp_bytes;
+  int decomp_bytes;
+  int ok;
+  long time;
+} t_decomp_file;
+
+typedef struct s_comp_segment {
+  key_t key;
+  int shmid;
+  t_comp_file *file;
+} t_comp_segment;
+
+typedef struct s_decomp_segment {
+  key_t key;
+  int shmid;
+  t_decomp_file *file;
+} t_decomp_segment;
 
 t_node *create_node(char character, int frequency);
 void init_list(t_list *list);
@@ -56,5 +77,7 @@ void read_file_frequency(char *file_name, unsigned int *ascii);
 unsigned char *read_file(char *file_name);
 
 void dup_dictionary(unsigned char (*dest)[8], char **src);
+
+long timestamp(void);
 
 #endif
