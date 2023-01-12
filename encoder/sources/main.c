@@ -13,8 +13,7 @@ static t_decomp_segment get_decompressed_file_segment(int id) {
   return (segment);
 }
 
-static void set_compressed_file_segment(char *file_name,
-                                        char *compressed,
+static void set_compressed_file_segment(char *compressed,
                                         unsigned int *ascii,
                                         int id) {
   t_comp_file *file;
@@ -22,7 +21,6 @@ static void set_compressed_file_segment(char *file_name,
   key_t key = ftok("shmfile", id);
   int shmid = shmget(key, sizeof(t_comp_file), 0666 | IPC_CREAT);
   file = shmat(shmid, (void *)0, 0);
-  strcpy(file->file_name, file_name);
   strcpy(file->compressed, compressed);
   memcpy(file->ascii, ascii, sizeof(unsigned int) * ASCII_HEIGHT);
   shmdt(file);
@@ -56,7 +54,7 @@ int main(int argc, char **argv) {
   compressed = compress_str(dictionary, file_content);
   decompressed = decompress_str(compressed, root);
 
-  set_compressed_file_segment(argv[1], compressed, ascii, 1);
+  set_compressed_file_segment(compressed, ascii, 1);
   segment = get_decompressed_file_segment(2);
 
   printf("\n[DICTIONARY]\n\n");

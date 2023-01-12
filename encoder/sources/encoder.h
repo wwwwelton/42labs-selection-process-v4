@@ -25,7 +25,6 @@ typedef struct s_list {
 } t_list;
 
 typedef struct s_comp_file {
-  char file_name[1024];
   char compressed[20000];
   unsigned int ascii[ASCII_HEIGHT];
 } t_comp_file;

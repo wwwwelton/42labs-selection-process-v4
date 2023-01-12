@@ -6,7 +6,7 @@ static t_comp_segment get_compressed_file_segment(int id) {
   segment.key = ftok("shmfile", id);
   segment.shmid = shmget(segment.key, sizeof(t_comp_file), 0666 | IPC_CREAT);
   segment.file = shmat(segment.shmid, (void *)0, 0);
-  if (!strlen(segment.file->file_name)) {
+  if (!strlen(segment.file->compressed)) {
     dprintf(2, "The file to be decoded was not found\n");
     exit(1);
   }
