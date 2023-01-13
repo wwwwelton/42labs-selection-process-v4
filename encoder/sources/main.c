@@ -7,7 +7,6 @@ int main(int argc, char **argv) {
   int columns;
   char **dictionary;
   char *compressed;
-  char *decompressed;
   unsigned char *file_content;
   t_decomp_segment segment;
 
@@ -26,7 +25,6 @@ int main(int argc, char **argv) {
 
   file_content = read_file(argv[1]);
   compressed = compress_str(dictionary, file_content);
-  decompressed = decompress_str(compressed, root);
 
   set_compressed_file_segment(compressed, ascii, 1);
   segment = get_decompressed_file_segment(2);
@@ -48,7 +46,6 @@ int main(int argc, char **argv) {
 
   free_dictionary(dictionary, ASCII_HEIGHT);
   free(compressed);
-  free(decompressed);
   free(file_content);
   free_tree(root);
 

@@ -30,36 +30,6 @@ void generate_dictionary(char **dictionary, t_node *root, char *path, int column
   }
 }
 
-int get_string_lenght(char **dictionary, unsigned char *str) {
-  int i;
-  int lenght;
-
-  lenght = 0;
-  i = 0;
-  while (str[i]) {
-    lenght = lenght + strlen(dictionary[(int)str[i]]);
-    i++;
-  }
-
-  return (lenght + 1);
-}
-
-char *compress_str(char **dictionary, unsigned char *str) {
-  int i;
-  int lenght;
-  char *compressed;
-
-  lenght = get_string_lenght(dictionary, str);
-  compressed = calloc(lenght, sizeof(char));
-
-  i = 0;
-  while (str[i]) {
-    strcat(compressed, dictionary[(int)str[i]]);
-    i++;
-  }
-  return compressed;
-}
-
 char *decompress_str(char *compressed, t_node *root) {
   int i;
   t_node *tmp;
