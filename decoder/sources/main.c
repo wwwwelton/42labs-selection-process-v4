@@ -20,12 +20,13 @@ int main(void) {
   data.decompressed = decompress_str(data.segment.file->compressed,
                                      data.segment.file->size, data.root);
   data.time[1] = timestamp();
-  printf("%s", data.decompressed);
   set_decompressed_file_segment(data.decompressed,
                                 strlen(data.segment.file->compressed),
                                 strlen(data.decompressed),
                                 data.time[1] - data.time[0],
                                 2);
+
+  print_info(&data);
 
   clean_data(NULL, "");
   return (0);

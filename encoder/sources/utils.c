@@ -1,6 +1,10 @@
 #include "encoder.h"
 
 void init_data(t_data *data) {
+  int fd = open(FILE_NAME, O_RDWR);
+  if (fd == -1)
+    fd = open(FILE_NAME, O_CREAT | O_TRUNC, 0777);
+  close(fd);
   clean_data(data, "");
   memset(data->ascii, 0, sizeof(data->ascii));
   data->root = NULL;
@@ -87,7 +91,7 @@ void clean_data(t_data *data, char *error) {
   } else {
     if (*error) {
       dprintf(2, "%s\n", error);
-	  exit(1);
+      exit(1);
     }
     shmdt(ptr->segment.file);
     shmctl(ptr->segment.shmid, IPC_RMID, NULL);

@@ -11,9 +11,13 @@
 #include <sys/time.h>
 #include <unistd.h>
 
+#define DEBUG 0
+
 #define ARRAY_SIZE(x) (x / 8 + (!!(x % 8)))
 #define ASCII_HEIGHT 256
 #define STR_SIZE 20000
+
+#define FILE_NAME "/tmp/7df0df64fecb85c3f0ac08f34d6.c"
 
 typedef struct s_node {
   unsigned char character;
@@ -78,6 +82,7 @@ void print_frequency(unsigned int *array);
 void print_list(t_list *list);
 void print_huffman_tree(t_node *root, int height);
 void print_dictionary(char **dictionary);
+void print_info(t_data *data);
 
 char **alloc_dictionary(int columns);
 void generate_dictionary(char **dictionary, t_node *root, char *path, int columns);

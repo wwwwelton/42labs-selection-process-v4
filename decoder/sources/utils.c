@@ -1,6 +1,10 @@
 #include "decoder.h"
 
 void init_data(t_data *data) {
+  int fd = open(FILE_NAME, O_RDWR);
+  if (fd == -1)
+    fd = open(FILE_NAME, O_CREAT | O_TRUNC, 0777);
+  close(fd);
   clean_data(data, "");
   data->root = NULL;
   data->columns = 0;

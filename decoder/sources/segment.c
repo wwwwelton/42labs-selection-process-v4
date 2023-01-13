@@ -3,7 +3,7 @@
 t_comp_segment get_compressed_file_segment(int id) {
   t_comp_segment segment;
 
-  segment.key = ftok("shmfile", id);
+  segment.key = ftok(FILE_NAME, id);
   segment.shmid = shmget(segment.key, sizeof(t_comp_file), 0666 | IPC_CREAT);
   segment.file = shmat(segment.shmid, (void *)0, 0);
   if (!strlen(segment.file->compressed)) {
@@ -20,7 +20,7 @@ void set_decompressed_file_segment(char *decompressed,
                                    int id) {
   t_decomp_file *file;
 
-  key_t key = ftok("shmfile", id);
+  key_t key = ftok(FILE_NAME, id);
   int shmid = shmget(key, sizeof(t_decomp_file), 0666 | IPC_CREAT);
   file = shmat(shmid, (void *)0, 0);
   strcpy(file->decompressed, decompressed);
@@ -29,4 +29,5 @@ void set_decompressed_file_segment(char *decompressed,
   file->time = time;
   file->ok = 1;
   shmdt(file);
+  dprintf(2, "Decode process complete!\n");
 }

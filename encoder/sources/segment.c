@@ -3,10 +3,10 @@
 t_decomp_segment get_decompressed_file_segment(int id) {
   t_decomp_segment segment;
 
-  segment.key = ftok("shmfile", id);
+  segment.key = ftok(FILE_NAME, id);
   segment.shmid = shmget(segment.key, sizeof(t_decomp_file), 0666 | IPC_CREAT);
   segment.file = shmat(segment.shmid, (void *)0, 0);
-  printf("Wating for decoded file\n");
+  dprintf(2, "Wating for decoded data...\n");
   while (!segment.file->ok) {
     sleep(1);
   }
@@ -19,7 +19,7 @@ void set_compressed_file_segment(char *compressed,
                                  int id) {
   t_comp_file *file;
 
-  key_t key = ftok("shmfile", id);
+  key_t key = ftok(FILE_NAME, id);
   int shmid = shmget(key, sizeof(t_comp_file), 0666 | IPC_CREAT);
   file = shmat(shmid, (void *)0, 0);
   memcpy(file->compressed, compressed, ARRAY_SIZE(size));
