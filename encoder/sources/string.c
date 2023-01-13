@@ -30,33 +30,39 @@ void generate_dictionary(char **dictionary, t_node *root, char *path, int column
   }
 }
 
-int get_string_lenght(char **dictionary, unsigned char *str) {
-  int i;
+int get_string_lenght(int argc, char **argv, char **dictionary) {
   int lenght;
+  unsigned char c;
 
   lenght = 0;
-  i = 0;
-  while (str[i]) {
-    lenght = lenght + strlen(dictionary[(int)str[i]]);
-    i++;
+  for (int i = 1; i < argc; i++) {
+    int fd = open(argv[i], O_RDONLY);
+
+    while (read(fd, &c, 1) > 0) {
+      lenght = lenght + strlen(dictionary[c]);
+    }
+    close(fd);
   }
 
   return (lenght + 1);
 }
 
-char *compress_str(char **dictionary, unsigned char *str, size_t *size) {
-  int i;
+char *compress_str(int argc, char **argv, char **dictionary, size_t *size) {
   int lenght;
   char *tmp;
   char *compressed;
+  unsigned char c;
 
-  lenght = get_string_lenght(dictionary, str);
+  lenght = get_string_lenght(argc, argv, dictionary);
   tmp = calloc(lenght, sizeof(char));
 
-  i = 0;
-  while (str[i]) {
-    strcat(tmp, dictionary[(int)str[i]]);
-    i++;
+  for (int i = 1; i < argc; i++) {
+    int fd = open(argv[i], O_RDONLY);
+
+    while (read(fd, &c, 1) > 0) {
+      strcat(tmp, dictionary[c]);
+    }
+    close(fd);
   }
 
   compressed = calloc(ARRAY_SIZE(lenght) + 1, sizeof(char));

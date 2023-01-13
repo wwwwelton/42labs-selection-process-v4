@@ -1,18 +1,19 @@
 #include "encoder.h"
 
-void read_file_frequency(char *file_name, unsigned int *ascii) {
-  int fd;
+void read_files_frequency(int argc, char **argv, unsigned int *ascii) {
   unsigned char c;
 
-  fd = open(file_name, O_RDONLY);
-  if (fd == -1) {
-    dprintf(2, "Cannot open input file\n");
-    exit(1);
+  for (int i = 1; i < argc; i++) {
+    int fd = open(argv[i], O_RDONLY);
+    if (fd == -1) {
+      dprintf(2, "Failed to open %s!\n", argv[i]);
+      exit(1);
+    }
+    while (read(fd, &c, 1) > 0) {
+      ascii[c]++;
+    }
+    close(fd);
   }
-  while (read(fd, &c, 1) > 0) {
-    ascii[c]++;
-  }
-  close(fd);
 }
 
 unsigned char *read_file(char *file_name) {
@@ -69,7 +70,7 @@ void check_args(int argc, char **argv) {
     dprintf(2, "At least one file must be specified!\n");
     exit(1);
   }
-  for (int i = 1; i != argc; i++) {
+  for (int i = 1; i < argc; i++) {
     int fd = open(argv[i], O_RDONLY);
     if (fd == -1) {
       dprintf(2, "Failed to open %s!\n", argv[i]);

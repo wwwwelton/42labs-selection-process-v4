@@ -68,13 +68,13 @@ void print_dictionary(char **dictionary);
 char **alloc_dictionary(int columns);
 void generate_dictionary(char **dictionary, t_node *root, char *path, int columns);
 
-int get_string_lenght(char **dictionary, unsigned char *str);
-char *compress_str(char **dictionary, unsigned char *str, size_t *size);
+int get_string_lenght(int argc, char **argv, char **dictionary);
+char *compress_str(int argc, char **argv, char **dictionary, size_t *size);
 
 void free_dictionary(char **dictionary, int size);
 void free_tree(t_node *root);
 
-void read_file_frequency(char *file_name, unsigned int *ascii);
+void read_files_frequency(int argc, char **argv, unsigned int *ascii);
 unsigned char *read_file(char *file_name);
 
 void dup_dictionary(unsigned char (*dest)[8], char **src);
