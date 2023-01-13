@@ -65,7 +65,6 @@ long timestamp(void) {
 }
 
 void check_args(int argc, char **argv) {
-  (void)argv;
   if (argc == 1) {
     dprintf(2, "At least one file must be specified!\n");
     exit(1);
