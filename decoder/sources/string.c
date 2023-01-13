@@ -37,7 +37,7 @@ char *decompress_str(char *compressed, size_t size, t_node *root) {
   char *decompressed;
 
   tmp = root;
-  decompressed = calloc(size, sizeof(char));
+  decompressed = calloc(size + 1, sizeof(char));
   i = 0;
   while (i < size) {
     if (get_bit(compressed, (int)i) == 0)
