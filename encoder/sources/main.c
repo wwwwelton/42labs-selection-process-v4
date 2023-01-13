@@ -9,6 +9,7 @@ int main(int argc, char **argv) {
   char *compressed;
   unsigned char *file_content;
   t_decomp_segment segment;
+  size_t size;
 
   (void)argc;
 
@@ -24,9 +25,10 @@ int main(int argc, char **argv) {
   generate_dictionary(dictionary, root, "", columns);
 
   file_content = read_file(argv[1]);
-  compressed = compress_str(dictionary, file_content);
+  size = 0;
+  compressed = compress_str(dictionary, file_content, &size);
 
-  set_compressed_file_segment(compressed, ascii, 1);
+  set_compressed_file_segment(compressed, ascii, size, 1);
   segment = get_decompressed_file_segment(2);
 
   printf("\n[DICTIONARY]\n\n");

@@ -30,12 +30,13 @@ void generate_dictionary(char **dictionary, t_node *root, char *path, int column
   }
 }
 
-char *decompress_str(char *compressed, t_node *root) {
+char *decompress_str(char *compressed, size_t size, t_node *root) {
   int i;
   t_node *tmp;
   char tmp_str[2] = {0};
   char *decompressed;
 
+  (void)size;
   tmp = root;
   decompressed = calloc(strlen(compressed), sizeof(char));
   i = 0;

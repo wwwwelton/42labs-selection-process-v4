@@ -12,6 +12,7 @@
 #include <unistd.h>
 
 #define ASCII_HEIGHT 256
+#define STR_SIZE 20000
 
 typedef struct s_node {
   unsigned char character;
@@ -25,12 +26,13 @@ typedef struct s_list {
 } t_list;
 
 typedef struct s_comp_file {
-  char compressed[20000];
+  char compressed[STR_SIZE];
   unsigned int ascii[ASCII_HEIGHT];
+  size_t size;
 } t_comp_file;
 
 typedef struct s_decomp_file {
-  char decompressed[20000];
+  char decompressed[STR_SIZE];
   int comp_bytes;
   int decomp_bytes;
   int ok;
@@ -66,7 +68,7 @@ char **alloc_dictionary(int columns);
 void generate_dictionary(char **dictionary, t_node *root, char *path, int columns);
 
 int get_string_lenght(char **dictionary, unsigned char *str);
-char *compress_str(char **dictionary, unsigned char *str);
+char *compress_str(char **dictionary, unsigned char *str, size_t *size);
 
 void free_dictionary(char **dictionary, int size);
 void free_tree(t_node *root);
@@ -81,6 +83,7 @@ long timestamp(void);
 t_decomp_segment get_decompressed_file_segment(int id);
 void set_compressed_file_segment(char *compressed,
                                  unsigned int *ascii,
+                                 size_t size,
                                  int id);
 
 #endif

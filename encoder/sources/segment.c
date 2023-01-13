@@ -15,6 +15,7 @@ t_decomp_segment get_decompressed_file_segment(int id) {
 
 void set_compressed_file_segment(char *compressed,
                                  unsigned int *ascii,
+                                 size_t size,
                                  int id) {
   t_comp_file *file;
 
@@ -23,5 +24,6 @@ void set_compressed_file_segment(char *compressed,
   file = shmat(shmid, (void *)0, 0);
   strcpy(file->compressed, compressed);
   memcpy(file->ascii, ascii, sizeof(unsigned int) * ASCII_HEIGHT);
+  file->size = size;
   shmdt(file);
 }

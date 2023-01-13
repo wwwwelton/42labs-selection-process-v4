@@ -21,7 +21,7 @@ int main(void) {
   dictionary = alloc_dictionary(columns);
   generate_dictionary(dictionary, root, "", columns);
 
-  decompressed = decompress_str(segment.file->compressed, root);
+  decompressed = decompress_str(segment.file->compressed, segment.file->size, root);
   time[1] = timestamp();
   printf("%s", decompressed);
   set_decompressed_file_segment(decompressed,

@@ -44,7 +44,7 @@ int get_string_lenght(char **dictionary, unsigned char *str) {
   return (lenght + 1);
 }
 
-char *compress_str(char **dictionary, unsigned char *str) {
+char *compress_str(char **dictionary, unsigned char *str, size_t *size) {
   int i;
   int lenght;
   char *compressed;
@@ -57,5 +57,6 @@ char *compress_str(char **dictionary, unsigned char *str) {
     strcat(compressed, dictionary[(int)str[i]]);
     i++;
   }
+  *size = lenght;
   return compressed;
 }
