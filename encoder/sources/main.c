@@ -1,52 +1,42 @@
 #include "encoder.h"
 
 int main(int argc, char **argv) {
-  unsigned int ascii[ASCII_HEIGHT] = {0};
-  t_list list;
-  t_node *root;
-  int columns;
-  char **dictionary;
-  char *compressed;
-  t_decomp_segment segment;
-  size_t size;
+  t_data data;
 
   check_args(argc, argv);
 
-  read_files_frequency(argc, argv, ascii);
+  init_data(&data);
 
-  init_list(&list);
-  fill_list(ascii, ASCII_HEIGHT, &list);
+  read_files_frequency(argc, argv, data.ascii);
 
-  root = create_huffman_tree(&list);
-  columns = huffman_tree_height(root) + 1;
+  init_list(&data.list);
+  fill_list(data.ascii, ASCII_HEIGHT, &data.list);
 
-  dictionary = alloc_dictionary(columns);
-  generate_dictionary(dictionary, root, "", columns);
+  data.root = create_huffman_tree(&data.list);
+  data.columns = huffman_tree_height(data.root) + 1;
 
-  size = 0;
-  compressed = compress_str(argc, argv, dictionary, &size);
+  data.dictionary = alloc_dictionary(data.columns);
+  generate_dictionary(data.dictionary, data.root, "", data.columns);
 
-  set_compressed_file_segment(compressed, ascii, size, 1);
-  segment = get_decompressed_file_segment(2);
+  data.size = 0;
+  data.compressed = compress_str(argc, argv, data.dictionary, &data.size);
+
+  set_compressed_file_segment(data.compressed, data.ascii, data.size, 1);
+  data.segment = get_decompressed_file_segment(2);
 
   printf("\n[DICTIONARY]\n\n");
-  print_dictionary(dictionary);
+  print_dictionary(data.dictionary);
 
   printf("\n[COMPRESSED]\n");
-  printf("%s", compressed);
+  printf("%s", data.compressed);
 
   printf("\n\n[DECOMPRESSED]\n");
-  printf("Compressed size:   %d bytes\n", segment.file->comp_bytes);
-  printf("Decompressed size: %d bytes\n", segment.file->decomp_bytes);
-  printf("Time to decode:    %ld ms\n\n", segment.file->time);
-  printf("Data content: \n%s\n", segment.file->decompressed);
+  printf("Compressed size:   %d bytes\n", data.segment.file->comp_bytes);
+  printf("Decompressed size: %d bytes\n", data.segment.file->decomp_bytes);
+  printf("Time to decode:    %ld ms\n\n", data.segment.file->time);
+  printf("Data content: \n%s\n", data.segment.file->decompressed);
 
-  shmdt(segment.file);
-  shmctl(segment.shmid, IPC_RMID, NULL);
-
-  free_dictionary(dictionary, ASCII_HEIGHT);
-  free(compressed);
-  free_tree(root);
+  clean_data(NULL, "");
 
   return (0);
 }

@@ -1,5 +1,18 @@
 #include "encoder.h"
 
+void init_data(t_data *data) {
+  clean_data(data, "");
+  memset(data->ascii, 0, sizeof(data->ascii));
+  data->root = NULL;
+  data->columns = 0;
+  data->dictionary = NULL;
+  data->compressed = NULL;
+  data->size = 0;
+  data->segment.file = NULL;
+  data->segment.key = 0;
+  data->segment.shmid = 0;
+}
+
 void read_files_frequency(int argc, char **argv, unsigned int *ascii) {
   unsigned char c;
 
@@ -63,5 +76,24 @@ void check_args(int argc, char **argv) {
       exit(1);
     }
     close(fd);
+  }
+}
+
+void clean_data(t_data *data, char *error) {
+  static t_data *ptr = NULL;
+
+  if (data) {
+    ptr = data;
+  } else {
+    if (*error) {
+      dprintf(2, "%s\n", error);
+	  exit(1);
+    }
+    shmdt(ptr->segment.file);
+    shmctl(ptr->segment.shmid, IPC_RMID, NULL);
+
+    free_dictionary(ptr->dictionary, ASCII_HEIGHT);
+    free(ptr->compressed);
+    free_tree(ptr->root);
   }
 }

@@ -52,6 +52,20 @@ typedef struct s_decomp_segment {
   t_decomp_file *file;
 } t_decomp_segment;
 
+typedef struct s_data {
+  unsigned int ascii[ASCII_HEIGHT];
+  t_list list;
+  t_node *root;
+  int columns;
+  char **dictionary;
+  char *compressed;
+  t_decomp_segment segment;
+  size_t size;
+} t_data;
+
+void init_data(t_data *data);
+void clean_data(t_data *data, char *error);
+
 t_node *create_node(char character, int frequency);
 void init_list(t_list *list);
 void insert_node_list(t_list *list, t_node *node);
