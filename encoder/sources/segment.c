@@ -22,7 +22,7 @@ void set_compressed_file_segment(char *compressed,
   key_t key = ftok("shmfile", id);
   int shmid = shmget(key, sizeof(t_comp_file), 0666 | IPC_CREAT);
   file = shmat(shmid, (void *)0, 0);
-  strcpy(file->compressed, compressed);
+  memcpy(file->compressed, compressed, ARRAY_SIZE(size));
   memcpy(file->ascii, ascii, sizeof(unsigned int) * ASCII_HEIGHT);
   file->size = size;
   shmdt(file);

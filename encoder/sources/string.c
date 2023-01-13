@@ -59,7 +59,7 @@ char *compress_str(char **dictionary, unsigned char *str, size_t *size) {
     i++;
   }
 
-  compressed = calloc(ARRAY_SIZE(lenght), sizeof(char));
+  compressed = calloc(ARRAY_SIZE(lenght) + 1, sizeof(char));
   for (int i = 0; tmp[i]; i++) {
     if (tmp[i] == '1') {
       toggle_bit(compressed, i);
