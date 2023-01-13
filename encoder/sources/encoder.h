@@ -75,7 +75,6 @@ void free_dictionary(char **dictionary, int size);
 void free_tree(t_node *root);
 
 void read_files_frequency(int argc, char **argv, unsigned int *ascii);
-unsigned char *read_file(char *file_name);
 
 void dup_dictionary(unsigned char (*dest)[8], char **src);
 

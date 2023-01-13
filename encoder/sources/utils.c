@@ -16,20 +16,6 @@ void read_files_frequency(int argc, char **argv, unsigned int *ascii) {
   }
 }
 
-unsigned char *read_file(char *file_name) {
-  int fd;
-  char tmp[2] = {0};
-  char *str;
-
-  str = calloc(5000, sizeof(char));
-  fd = open(file_name, O_RDONLY);
-  while (read(fd, tmp, 1) > 0) {
-    strcat(str, tmp);
-  }
-  close(fd);
-  return ((unsigned char *)str);
-}
-
 void dup_dictionary(unsigned char (*dest)[8], char **src) {
   for (int i = 0; i < 256; i++) {
     for (int j = 0; j < 8; j++) {
