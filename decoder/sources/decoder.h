@@ -79,4 +79,11 @@ void dup_dictionary(unsigned char (*dest)[8], char **src);
 
 long timestamp(void);
 
+t_comp_segment get_compressed_file_segment(int id);
+void set_decompressed_file_segment(char *decompressed,
+                                   int c_size,
+                                   int d_size,
+                                   long time,
+                                   int id);
+
 #endif
