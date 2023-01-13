@@ -11,6 +11,7 @@
 #include <sys/time.h>
 #include <unistd.h>
 
+#define ARRAY_SIZE(x) (x / 8 + (!!(x % 8)))
 #define ASCII_HEIGHT 256
 #define STR_SIZE 20000
 
@@ -85,5 +86,8 @@ void set_compressed_file_segment(char *compressed,
                                  unsigned int *ascii,
                                  size_t size,
                                  int id);
+
+char get_bit(char *array, int index);
+void toggle_bit(char *array, int index);
 
 #endif

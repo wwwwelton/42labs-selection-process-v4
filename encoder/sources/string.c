@@ -47,16 +47,26 @@ int get_string_lenght(char **dictionary, unsigned char *str) {
 char *compress_str(char **dictionary, unsigned char *str, size_t *size) {
   int i;
   int lenght;
+  char *tmp;
   char *compressed;
 
   lenght = get_string_lenght(dictionary, str);
-  compressed = calloc(lenght, sizeof(char));
+  tmp = calloc(lenght, sizeof(char));
 
   i = 0;
   while (str[i]) {
-    strcat(compressed, dictionary[(int)str[i]]);
+    strcat(tmp, dictionary[(int)str[i]]);
     i++;
   }
-  *size = lenght;
+
+  compressed = calloc(ARRAY_SIZE(lenght), sizeof(char));
+  for (int i = 0; tmp[i]; i++) {
+    if (tmp[i] == '1') {
+      toggle_bit(compressed, i);
+    }
+  }
+
+  *size = lenght - 1;
+  free(tmp);
   return compressed;
 }

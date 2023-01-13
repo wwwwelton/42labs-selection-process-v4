@@ -31,17 +31,16 @@ void generate_dictionary(char **dictionary, t_node *root, char *path, int column
 }
 
 char *decompress_str(char *compressed, size_t size, t_node *root) {
-  int i;
+  size_t i;
   t_node *tmp;
   char tmp_str[2] = {0};
   char *decompressed;
 
-  (void)size;
   tmp = root;
-  decompressed = calloc(strlen(compressed), sizeof(char));
+  decompressed = calloc(size, sizeof(char));
   i = 0;
-  while (compressed[i]) {
-    if (compressed[i] == '0')
+  while (i < size) {
+    if (get_bit(compressed, (int)i) == 0)
       tmp = tmp->left;
     else
       tmp = tmp->right;

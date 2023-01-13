@@ -1,4 +1,4 @@
-SOURCES_FILES	=	main.c utils.c tree.c print.c string.c segment.c
+SOURCES_FILES	=	main.c utils.c tree.c print.c string.c segment.c bits.c
 
 SOURCES_DIR		=	sources
 

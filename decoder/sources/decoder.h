@@ -81,4 +81,7 @@ void set_decompressed_file_segment(char *decompressed,
                                    long time,
                                    int id);
 
+char get_bit(char *array, int index);
+void toggle_bit(char *array, int index);
+
 #endif
