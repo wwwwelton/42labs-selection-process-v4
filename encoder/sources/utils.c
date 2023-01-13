@@ -63,3 +63,19 @@ long timestamp(void) {
   gettimeofday(&time, NULL);
   return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
 }
+
+void check_args(int argc, char **argv) {
+  (void)argv;
+  if (argc == 1) {
+    dprintf(2, "At least one file must be specified!\n");
+    exit(1);
+  }
+  for (int i = 1; i != argc; i++) {
+    int fd = open(argv[i], O_RDONLY);
+    if (fd == -1) {
+      dprintf(2, "Failed to open %s!\n", argv[i]);
+      exit(1);
+    }
+    close(fd);
+  }
+}

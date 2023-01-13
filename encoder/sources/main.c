@@ -11,7 +11,7 @@ int main(int argc, char **argv) {
   t_decomp_segment segment;
   size_t size;
 
-  (void)argc;
+  check_args(argc, argv);
 
   read_file_frequency(argv[1], ascii);
 

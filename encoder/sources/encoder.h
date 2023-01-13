@@ -90,4 +90,6 @@ void set_compressed_file_segment(char *compressed,
 char get_bit(char *array, int index);
 void toggle_bit(char *array, int index);
 
+void check_args(int argc, char **argv);
+
 #endif
