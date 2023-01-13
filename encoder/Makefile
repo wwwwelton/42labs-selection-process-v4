@@ -1,4 +1,4 @@
-SOURCES_FILES	=	main.c utils.c list.c
+SOURCES_FILES	=	main.c utils.c tree.c print.c string.c
 
 SOURCES_DIR		=	sources
 
@@ -16,7 +16,6 @@ CC				=	gcc
 RM				=	rm -rf
 
 CFLAGS			=	-Wall -Wextra -Werror -g
-LDFLAGS			=	-pthread
 
 $(OBJ_DIR)/%.o:		$(SOURCES_DIR)/%.c $(HEADER)
 					$(CC) $(CFLAGS) -c $< -o $@

@@ -1,4 +1,4 @@
-SOURCES_FILES	=	main.c list.c utils.c
+SOURCES_FILES	=	main.c utils.c tree.c print.c string.c
 
 SOURCES_DIR		=	sources
 
