@@ -1,26 +1,27 @@
 # 42 Labs 4º Edição
-## Desafio
-O desafio consiste no desenvolvimento de uma aplicação de análise e compressão de dados. Essa aplicação utilizará o algoritmo de compressão [Huffman](https://pt.wikipedia.org/wiki/Codifica%C3%A7%C3%A3o_de_Huffman) e poderá receber múltiplos dados onde, uma vez que comprimido deve ser descomprimido e coletar informações pertinentes para a análise do processo e dado.
+[## Desafio](SUBJECT.MD)
+O desafio consiste no desenvolvimento de uma aplicação de análise e compressão de dados. Essa aplicação utilizará o algoritmo de compressão [Huffman](https://pt.wikipedia.org/wiki/Codifica%C3%A7%C3%A3o_de_Huffman) e poderá receber múltiplos dados onde, uma vez que comprimido, deve ser descomprimido e coletar informações pertinentes para a análise do processo e dado.
 
 Para isso, você criará dois programas: encoder e decoder. O encoder receberá o dado a ser comprimido e exibirá suas informações vindas do decoder. Já, o decoder descomprimirá o dado e irá enviá-lo ao encoder com suas informações, onde será exibido. Os programas devem se comunicar utilizando [shared memory operations](https://www.geeksforgeeks.org/ipc-shared-memory/).
 
 A [linguagem C](https://en.wikipedia.org/wiki/C_(programming_language)) será utilizada para o desenvolvimento e não há bibliotecas externas permitidas.
 
 ### Algoritmo/Codificação de Huffman
-O algoritmo de [Huffman](https://pt.wikipedia.org/wiki/Codifica%C3%A7%C3%A3o_de_Huffman) é um método de compressão que usa as probabilidas de ocorrência dos símbolos ou caracteres no conjunto de dados a ser comprimido para criar novos códigos para esses símbolos com tamanho reduzido.
+O algoritmo de [Huffman](https://pt.wikipedia.org/wiki/Codifica%C3%A7%C3%A3o_de_Huffman) é um método de compressão que usa as probabilidades de ocorrência dos símbolos ou caracteres no conjunto de dados a ser comprimido para criar códigos para esses símbolos com tamanho reduzido.
 
-Uma árvore binária é construída apartir de uma tabela de ocorrência dos símbolos, começando pelos símbolos de menor frequência sendo agrupados em um nó da árvore até que todos os símbolos estejam agrupados. A soma da ocorrência da junção dos dois símbolos é usada como valor determinante, de modo que os
+Uma árvore binária é construída a partir de uma tabela de ocorrência dos símbolos, começando pelos símbolos de menor frequência sendo agrupados em um nó da árvore até que todos os símbolos estejam agrupados. A soma da ocorrência da junção dos dois símbolos é usada como valor determinante, de modo que os
 símbolos mais frequentes estejam no topo da árvore.
 
-Cada nó da árvore representa 0 ou 1, quando uma folha ou aresta da árvore é atingida a concatenação dos valores binários resultantes pode ser traduzida usando o dicionário contruído usando a tabela de ocorrência.
+Cada nó da árvore representa 0 ou 1, quando uma folha ou aresta da árvore é atingida, a concatenação dos valores binários resultantes pode ser traduzida usando o dicionário construído usando a tabela de ocorrência.
+
 ![alt text](./images/huffman_tree.svg)
 
 ### Estrutura da Aplicação
 ![alt text](./images/app_structure.svg)
 
 ### Memória Compartilhada / Shared Memory Operations
-Para a comunicação entre processos geralmente são utilizados pipes ou named pipes, onde um processo envia dados na entrada padrão de outro processo.
-Mas existe ainda uma outra maneira, "memória compartilhada". Através da memória compartilhada um segmento de memória é criado com um id, sendo possível outro programa ler e gravar neste segmento ou endereço de memória, sendo possível a criação de aplicações com um maior controle e complexidade.
+Para a comunicação entre processos são geralmente utilizados pipes ou named pipes, onde um processo envia dados na entrada padrão de outro processo.
+Mas existe ainda outra maneira, "memória compartilhada". Através da memória compartilhada um segmento de memória é criado com um id, sendo possível outro programa ler e gravar neste segmento ou endereço de memória, sendo possível a criação de aplicações com um maior controle e complexidade.
 As chamadas de sistema utilizadas são:
 
 **ftok():** é usado para gerar uma chave única.
@@ -99,7 +100,7 @@ int main(void)
 
 ### Structs com membros de tamanho variável / Flexible Array Members
 Para usar uma struct em C que contenha um array na stack, o valor deve ser previamente definido.
-Mas caso esse valor for desconhecido no momento da criação da struct, podemos utilizar uma técnica introduzida apartir do C99, "Flexible Array Members".
+Mas caso esse valor for desconhecido no momento da criação da struct, podemos utilizar uma técnica introduzida a partir do C99, "Flexible Array Members".
 Considere a seguinte struct:
 ```c
 struct student
@@ -110,7 +111,7 @@ struct student
    char stud_name[];
 };
 ```
-Não conhecemos o tamanho do array **stud_name[]**. Então para alocar memória, podemos colocar **stud_name[]** no final da struct e simplesmente no momento da alocação usar por exemplo:
+Não conhecemos o tamanho do array **stud_name[]**. Então para alocar memória, podemos colocar **stud_name[]** no final da struct e simplesmente no momento da alocação usar, por exemplo:
 ```c
 struct student *s = malloc( sizeof(student) + sizeof(char [strlen(stud_name)])  );
 ```
@@ -132,14 +133,14 @@ cd encoder && make
 cd decoder && make
 
 # Crie um arquivo de texto
-# Por exemplo para criar um arquivo de mil palavras
+# Por exemplo, para criar um arquivo de mil palavras
 yes "abacate ovo fruta pessego" | head -c 1K > 1K.txt
 
 # Para criar um arquivo com o conteúdo desejado
 echo "hello world" > data.txt
 
 # Rode o encoder com um ou mais arquivos na entrada
-# para comprimir os dados exemplo:
+# para comprimir os dados, exemplo:
 ./encoder 1K.txt
 ./encoder data.txt
 ./encoder 1K.txt 2K.txt
