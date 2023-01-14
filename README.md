@@ -165,6 +165,7 @@ make fclean
 ## Bugs Conhecidos
 
 - Arquivos com 1 byte ou somente 1 caractere/símbolo
+- Dados maiores que 250k (250 mil bytes) causa funcionamento intermitente
 
 ## Links Externos
 
