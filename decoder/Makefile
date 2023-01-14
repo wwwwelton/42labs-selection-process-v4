@@ -16,7 +16,6 @@ CC				=	gcc
 RM				=	rm -rf
 
 CFLAGS			=	-Wall -Wextra -Werror -g
-LDFLAGS			=	-pthread
 
 $(OBJ_DIR)/%.o:		$(SOURCES_DIR)/%.c $(HEADER)
 					$(CC) $(CFLAGS) -c $< -o $@
