@@ -101,7 +101,6 @@ void set_compressed_file_segment(char *compressed,
                                  unsigned int *ascii,
                                  size_t size,
                                  int id);
-void set_compressed_file_segment_size(size_t size, int id);
 
 char get_bit(char *array, int index);
 void toggle_bit(char *array, int index);

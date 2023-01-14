@@ -98,8 +98,6 @@ void set_decompressed_file_segment(char *decompressed,
                                    int d_size,
                                    long time,
                                    int id);
-size_t get_compressed_file_segment_size(int id);
-void set_decompressed_file_segment_size(size_t size, int id);
 
 char get_bit(char *array, int index);
 void toggle_bit(char *array, int index);
