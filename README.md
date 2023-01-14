@@ -166,6 +166,7 @@ make fclean
 
 - Arquivos com 1 byte ou somente 1 caractere/símbolo
 - Dados maiores que 250k (250 mil bytes) causa funcionamento intermitente
+- Arquivos que não são textos, ficam corrompidos após a descompressão
 
 ## Links Externos
 
