@@ -1,6 +1,6 @@
 # 42 Labs 4º Edição
-[## Desafio](SUBJECT.MD)
-O desafio consiste no desenvolvimento de uma aplicação de análise e compressão de dados. Essa aplicação utilizará o algoritmo de compressão [Huffman](https://pt.wikipedia.org/wiki/Codifica%C3%A7%C3%A3o_de_Huffman) e poderá receber múltiplos dados onde, uma vez que comprimido, deve ser descomprimido e coletar informações pertinentes para a análise do processo e dado.
+## Desafio
+O [desafio](SUBJECT.md) consiste no desenvolvimento de uma aplicação de análise e compressão de dados. Essa aplicação utilizará o algoritmo de compressão [Huffman](https://pt.wikipedia.org/wiki/Codifica%C3%A7%C3%A3o_de_Huffman) e poderá receber múltiplos dados onde, uma vez que comprimido, deve ser descomprimido e coletar informações pertinentes para a análise do processo e dado.
 
 Para isso, você criará dois programas: encoder e decoder. O encoder receberá o dado a ser comprimido e exibirá suas informações vindas do decoder. Já, o decoder descomprimirá o dado e irá enviá-lo ao encoder com suas informações, onde será exibido. Os programas devem se comunicar utilizando [shared memory operations](https://www.geeksforgeeks.org/ipc-shared-memory/).
 
