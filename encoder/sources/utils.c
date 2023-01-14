@@ -19,6 +19,7 @@ void init_data(t_data *data) {
 
 void read_files_frequency(int argc, char **argv, unsigned int *ascii) {
   unsigned char c;
+  long size = 0;
 
   for (int i = 1; i < argc; i++) {
     int fd = open(argv[i], O_RDONLY);
@@ -28,8 +29,13 @@ void read_files_frequency(int argc, char **argv, unsigned int *ascii) {
     }
     while (read(fd, &c, 1) > 0) {
       ascii[c]++;
+      size++;
     }
     close(fd);
+  }
+  if (size < 2) {
+    dprintf(2, "The data to be encoded has %ld bytes and cannot be compressed!\n", size);
+    exit(1);
   }
 }
 
