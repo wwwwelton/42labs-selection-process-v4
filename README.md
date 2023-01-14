@@ -14,7 +14,7 @@ símbolos mais frequentes estejam no topo da árvore.
 
 Cada nó da árvore representa 0 ou 1, quando uma folha ou aresta da árvore é atingida, a concatenação dos valores binários resultantes pode ser traduzida usando o dicionário construído usando a tabela de ocorrência.
 
-![alt text](./images/huffman_tree.svg)
+![alt text](./images/huffman_tree_2.svg)
 
 ### Estrutura da Aplicação
 ![alt text](./images/app_structure.svg)
