@@ -94,8 +94,6 @@ void free_tree(t_node *root);
 
 void read_files_frequency(int argc, char **argv, unsigned int *ascii);
 
-void dup_dictionary(unsigned char (*dest)[8], char **src);
-
 long timestamp(void);
 
 t_decomp_segment get_decompressed_file_segment(int id);

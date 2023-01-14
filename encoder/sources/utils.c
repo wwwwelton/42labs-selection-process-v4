@@ -33,14 +33,6 @@ void read_files_frequency(int argc, char **argv, unsigned int *ascii) {
   }
 }
 
-void dup_dictionary(unsigned char (*dest)[8], char **src) {
-  for (int i = 0; i < 256; i++) {
-    for (int j = 0; j < 8; j++) {
-      dest[i][j] = src[i][j];
-    }
-  }
-}
-
 void free_dictionary(char **dictionary, int size) {
   for (int i = 0; i < size; i++) {
     free(dictionary[i]);
