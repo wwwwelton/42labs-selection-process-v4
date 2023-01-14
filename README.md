@@ -119,8 +119,11 @@ struct student *s = malloc( sizeof(student) + sizeof(char [strlen(stud_name)])  
 ## Como começar
 **Siga as etapas**
 ```bash
-# Clone o projeto e acesse a pasta
+# Clone o projeto e acesse a pasta usando HTTPS
 git clone https://github.com/42sp/42labs-selection-process-v4-wwwwelton && cd 42labs-selection-process-v4-wwwwelton/
+
+# Clone o projeto e acesse a pasta usando SSH
+git clone git@github.com:42sp/42labs-selection-process-v4-wwwwelton.git && cd 42labs-selection-process-v4-wwwwelton/
 
 # Divida o terminal em dois ou abra um novo terminal
 
