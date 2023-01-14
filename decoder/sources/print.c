@@ -42,8 +42,19 @@ void print_info(t_data *data) {
 
     dprintf(2, "\n[COMPRESSED]\n");
     dprintf(2, "%s", data->segment.file->compressed);
+	dprintf(2, "\n");
 
-    dprintf(2, "\n\n[DECOMPRESSED]\n");
+    dprintf(2, "\n[BINARY COMPRESSED]\n");
+    for (size_t i = 0; i < data->segment.file->size; i++) {
+      if (get_bit(data->segment.file->compressed, i) == 0) {
+        dprintf(2, "0");
+      } else {
+        dprintf(2, "1");
+      }
+    }
+    dprintf(2, "\n");
+
+    dprintf(2, "\n[DECOMPRESSED]\n");
     dprintf(2, "Compressed size:   %ld bytes\n", strlen(data->segment.file->compressed));
     dprintf(2, "Decompressed size: %ld bytes\n", strlen(data->decompressed));
     dprintf(2, "Time to decode:    %ld ms\n\n", data->time[1] - data->time[0]);
