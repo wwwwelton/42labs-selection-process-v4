@@ -13,8 +13,8 @@
 
 #define DEBUG 0
 
+#define ARRAY_SIZE(x) (x / 8 + (!!(x % 8)))
 #define ASCII_HEIGHT 256
-#define STR_SIZE 20000
 
 #define FILE_NAME "/tmp/7df0df64fecb85c3f0ac08f34d6.c"
 
@@ -30,17 +30,17 @@ typedef struct s_list {
 } t_list;
 
 typedef struct s_comp_file {
-  char compressed[STR_SIZE];
-  unsigned int ascii[ASCII_HEIGHT];
   size_t size;
+  unsigned int ascii[ASCII_HEIGHT];
+  char compressed[];
 } t_comp_file;
 
 typedef struct s_decomp_file {
-  char decompressed[STR_SIZE];
   int comp_bytes;
   int decomp_bytes;
   int ok;
   long time;
+  char decompressed[];
 } t_decomp_file;
 
 typedef struct s_comp_segment {
@@ -98,6 +98,8 @@ void set_decompressed_file_segment(char *decompressed,
                                    int d_size,
                                    long time,
                                    int id);
+size_t get_compressed_file_segment_size(int id);
+void set_decompressed_file_segment_size(size_t size, int id);
 
 char get_bit(char *array, int index);
 void toggle_bit(char *array, int index);

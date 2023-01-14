@@ -88,6 +88,10 @@ void clean_data(t_data *data, char *error) {
 
   if (data) {
     ptr = data;
+    shmctl(shmget(ftok(FILE_NAME, 1), 0, 0), IPC_RMID, NULL);
+    shmctl(shmget(ftok(FILE_NAME, 2), 0, 0), IPC_RMID, NULL);
+    shmctl(shmget(ftok(FILE_NAME, 3), 0, 0), IPC_RMID, NULL);
+    shmctl(shmget(ftok(FILE_NAME, 4), 0, 0), IPC_RMID, NULL);
   } else {
     if (*error) {
       dprintf(2, "%s\n", error);

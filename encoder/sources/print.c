@@ -50,5 +50,6 @@ void print_info(t_data *data) {
   dprintf(2, "Decompressed size: %d bytes\n", data->segment.file->decomp_bytes);
   dprintf(2, "Time to decode:    %ld ms\n\n", data->segment.file->time);
   dprintf(2, "Data content: \n");
-  printf("%s\n", data->segment.file->decompressed);
+  printf("%s", data->segment.file->decompressed);
+  dprintf(2, "\n");
 }

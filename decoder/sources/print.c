@@ -48,6 +48,7 @@ void print_info(t_data *data) {
     dprintf(2, "Decompressed size: %ld bytes\n", strlen(data->decompressed));
     dprintf(2, "Time to decode:    %ld ms\n\n", data->time[1] - data->time[0]);
     dprintf(2, "Data content: \n");
-    printf("%s\n", data->decompressed);
+    printf("%s", data->decompressed);
+    dprintf(2, "\n");
   }
 }
