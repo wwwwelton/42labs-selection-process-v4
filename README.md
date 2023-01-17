@@ -192,6 +192,9 @@ https://www.dcode.fr/huffman-tree-compression
 
 https://www.geeksforgeeks.org/flexible-array-members-structure-c/
 
+## 📝 License
+
+This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details.
 
 ---
 
